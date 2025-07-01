@@ -1,0 +1,24 @@
+﻿@rendermode InteractiveServer
+@implements IDisposable
+
+<div>
+    @DateTime.Now.ToLongTimeString()
+</div>
+
+@code {
+    Timer timer = default!;
+
+    protected override void OnInitialized()
+    {
+        timer = new(OnTick, null, 0, 1_000);
+        
+    }
+
+    private void OnTick(object? state)
+    {
+        // do thread-safe work here
+        InvokeAsync(StateHasChanged); // ignore the returned Task
+    }
+    
+    public void Dispose() => timer?.Dispose();
+}

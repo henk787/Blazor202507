@@ -1,0 +1,25 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<div>
+    <button class="btn btn-primary" @onclick="() => mainTabs.SetActivePage(weatherPage)">Show the weather</button>
+</div>
+
+<TabControl @ref="mainTabs">
+    <TabPage Title="Insider"> Inside </TabPage>
+    <TabPage Title="Outsider"> Was Outside </TabPage>
+    <TabPage Title="Counter"><Counter /> </TabPage>
+    <TabPage Title="Weather" @ref="weatherPage" ><Weather /> </TabPage>
+</TabControl>
+
+
+@code{
+    TabControl mainTabs;
+    TabPage weatherPage;
+}

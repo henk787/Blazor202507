@@ -1,0 +1,24 @@
+﻿<div>
+    <CascadingValue Value="this" IsFixed="true">
+        <ul class="nav nav-tabs">
+            @ChildContent
+        </ul>
+    </CascadingValue>
+    <div class="nav-tabs-body">
+        @ActivePage?.ChildContent
+    </div>
+</div>
+@code {
+    [Parameter]
+    public required RenderFragment ChildContent { get; set; }
+
+    public TabPage? ActivePage { get; internal set; }
+
+    public bool IsActivePage(TabPage page) => page == ActivePage;
+    public void SetActivePage(TabPage page) 
+    {
+        ActivePage = page;
+        StateHasChanged();
+    }
+
+}

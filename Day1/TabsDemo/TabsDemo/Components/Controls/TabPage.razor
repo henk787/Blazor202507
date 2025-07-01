@@ -1,0 +1,23 @@
+﻿<li>
+    <a class="nav-link @IsActiveClass" role="button" @onclick="ShowMe">@Title</a>
+</li>
+
+@code {
+    [Parameter]
+    public required RenderFragment ChildContent { get; set; }
+
+    [CascadingParameter]
+    public required TabControl Parent { get; set; }
+
+    [Parameter, EditorRequired]
+    public string Title { get; set; }
+
+    string IsActiveClass => Parent.IsActivePage(this) ? "active" : "";
+    void ShowMe() => Parent.SetActivePage(this);
+
+    protected override void OnInitialized()
+    {
+        ArgumentNullException.ThrowIfNull(Parent);        
+    }
+
+}

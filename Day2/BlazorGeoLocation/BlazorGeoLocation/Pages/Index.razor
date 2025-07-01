@@ -1,0 +1,64 @@
+﻿@page "/"
+@inject IJSRuntime JSRuntime
+@implements IAsyncDisposable
+
+<PageTitle>Where is Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<button @onclick=@GetLocationAsync>Get Location</button>
+
+@if (geoCoordinates is not null)
+{
+    <h3>Where you are </h3>
+    <div>
+        Latitude : @geoCoordinates.Latitude <br />
+        Longitude : @geoCoordinates.Longitude<br />
+        Accuracy : @geoCoordinates.Accuracy
+    </div>
+}
+
+@code
+{
+    private readonly Lazy<Task<IJSObjectReference>> moduleTask = default!;
+    private readonly DotNetObjectReference<Index> dotNetObjectReference;
+
+    private GeoCoordinates? geoCoordinates; // het resultaat
+
+
+    // dit is een "Lazy loading" pattern. De ctor zet een Task op, de method hier onder await dit
+    public Index()  // constructor
+    {
+        moduleTask = new(() => JSRuntime.InvokeAsync<IJSObjectReference>(identifier: "import",            
+            args: "./js/GeoLocationJsInterop.js").AsTask());  
+
+        // In een RCL args: "./_content/MyRazorClassLib/js/GeoLocationJsInterop.js"
+
+        dotNetObjectReference = DotNetObjectReference.Create(this);  // de handle waarmee JS weer OnSuccessAsync() kan aanroepen
+    }
+   
+    public async Task GetLocationAsync()
+    {
+        var module = await moduleTask.Value;
+        await module.InvokeVoidAsync(identifier: "getCurrentPosition", dotNetObjectReference);
+    }
+
+    [JSInvokable]
+    public async Task OnSuccessAsync(GeoCoordinates geoCoordinates)
+    {
+        this.geoCoordinates = geoCoordinates;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (moduleTask.IsValueCreated)
+        {
+            var module = await moduleTask.Value;
+            await module.DisposeAsync();
+        }
+    }
+
+}

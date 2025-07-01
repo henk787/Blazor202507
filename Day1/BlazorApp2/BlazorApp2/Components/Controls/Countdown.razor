@@ -1,0 +1,41 @@
+﻿@rendermode InteractiveServer
+<div>
+    <button class="btn btn-primary" disabled="@isBusy" @onclick="CountDown">Start</button>&nbsp;
+    <span>@($"{remain:0.00}")</span>
+    <br />
+    @counter loops
+</div>
+
+@code {
+    bool isBusy;
+
+    double remain = 10;
+    int counter;
+
+    async Task CountDown()
+    {
+        DateTime finish = DateTime.Now.AddSeconds(10);
+
+        counter = 0;
+
+        while(true)
+        {
+            DateTime now = DateTime.Now;
+
+            remain = (finish - DateTime.Now).TotalSeconds;
+
+            if (remain <= 0)
+            {
+                remain = 0;
+                break;
+            }
+
+            counter++;
+
+            StateHasChanged();
+            await Task.Delay(1);
+            //await Task.Yield();
+        }
+    }
+
+}

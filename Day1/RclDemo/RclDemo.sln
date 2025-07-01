@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36203.30 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RclDemo", "RclDemo\RclDemo.csproj", "{40DC8BD5-6223-4D84-9D6E-05988E084CC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyComponents", "MyComponents\MyComponents.csproj", "{4F32169A-7568-40FE-AC8F-032AB1581B60}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{40DC8BD5-6223-4D84-9D6E-05988E084CC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40DC8BD5-6223-4D84-9D6E-05988E084CC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40DC8BD5-6223-4D84-9D6E-05988E084CC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40DC8BD5-6223-4D84-9D6E-05988E084CC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F32169A-7568-40FE-AC8F-032AB1581B60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F32169A-7568-40FE-AC8F-032AB1581B60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F32169A-7568-40FE-AC8F-032AB1581B60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F32169A-7568-40FE-AC8F-032AB1581B60}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {09987406-CA14-41C6-A70E-1DD58E0473BD}
+	EndGlobalSection
+EndGlobal

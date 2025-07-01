@@ -1,0 +1,34 @@
+﻿@typeparam T
+
+<table class="table">
+    <thead>
+        <tr>
+            @HeaderTemplate
+        </tr>
+
+    </thead>
+    
+    <tbody>
+        @foreach(var item in Items)
+        {
+            <tr>
+                @RowTemplate(item)
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter]
+    public RenderFragment? HeaderTemplate { get; set; }
+
+    [Parameter, EditorRequired]
+    public RenderFragment<T> RowTemplate { get; set; } 
+
+    [Parameter, EditorRequired]
+    public IEnumerable<T>? Items { get; set; } 
+
+
+
+
+}

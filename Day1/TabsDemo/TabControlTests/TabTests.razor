@@ -1,0 +1,43 @@
+@using Bunit
+@code {
+
+    RenderFragment fixture =>
+        @<TabControl>
+            <TabPage Title="1"><p>één</p></TabPage>
+            <TabPage Title="2"><p>twee</p></TabPage>
+        </TabControl> ;
+
+    [Fact]
+    public void TabControlShouldStartWithFirstPage()
+    {
+        // Arrange
+        using var ctx = new TestContext();
+
+        // act
+        var subject = ctx.Render(fixture);
+
+        // Assert
+        var tabPageContent = subject.Find("p");
+
+        tabPageContent.MarkupMatches(@<p>één</p>);
+    }
+
+[Fact]
+public void TabControlShouldActivatePageOnClick()
+{
+    // Arrange
+    using var ctx = new TestContext();
+    var subject = ctx.Render(fixture);
+
+    // act
+    var heading2 = subject.FindAll("a").Last();
+    heading2.Click();
+
+    // Assert
+    var pageContent = subject.Find("p");
+
+    pageContent.MarkupMatches(@<p>twee</p>);
+}
+
+
+}
