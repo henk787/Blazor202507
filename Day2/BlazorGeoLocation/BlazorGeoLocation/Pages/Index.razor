@@ -28,26 +28,32 @@ Welcome to your new app.
     private GeoCoordinates? geoCoordinates; // het resultaat
 
 
-    // dit is een "Lazy loading" pattern. De ctor zet een Task op, de method hier onder await dit
+    // This is a "Lazy loading" pattern. The ctor sets up a Task, 
+    // the method below awaits it
     public Index()  // constructor
     {
         moduleTask = new(() => JSRuntime.InvokeAsync<IJSObjectReference>(identifier: "import",            
             args: "./js/GeoLocationJsInterop.js").AsTask());  
 
-        // In een RCL args: "./_content/MyRazorClassLib/js/GeoLocationJsInterop.js"
+        // In a RCL args: "./_content/MyRazorClassLib/js/GeoLocationJsInterop.js"
 
-        dotNetObjectReference = DotNetObjectReference.Create(this);  // de handle waarmee JS weer OnSuccessAsync() kan aanroepen
+        // the handle for JS to call OnSuccessAsync() 
+        dotNetObjectReference = DotNetObjectReference.Create(this);  
     }
-   
+
     public async Task GetLocationAsync()
     {
+        Console.WriteLine("Wait for a module");
         var module = await moduleTask.Value;
+        Console.WriteLine("Got a module");
         await module.InvokeVoidAsync(identifier: "getCurrentPosition", dotNetObjectReference);
+        Console.WriteLine("Called JS");
     }
 
     [JSInvokable]
     public async Task OnSuccessAsync(GeoCoordinates geoCoordinates)
     {
+        Console.WriteLine("Success Callback");
         this.geoCoordinates = geoCoordinates;
         await InvokeAsync(StateHasChanged);
     }

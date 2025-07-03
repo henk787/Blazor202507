@@ -1,0 +1,32 @@
+﻿@page "/"
+@using Markdig
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+<div class="row">
+    <div class="col-6 border-black border-1 h-50">
+        <h3>Input</h3>
+@*         <textarea row="20" cols="40" 
+            @bind="mdText" @bind:event="oninput" />
+ *@
+        <InputTextArea @bind-Value="mdText" @oninput="OnInput" />
+    </div>
+    <div class="col-6 border-black border-1">
+        <h3>Preview</h3>
+        <div>
+            @preview
+        </div>        
+    </div>
+</div>
+
+
+@code{
+    string mdText = "";
+
+    void OnInput(ChangeEventArgs e) => mdText = (string?) e.Value ?? "";
+    
+
+    MarkupString preview => (MarkupString)Markdown.ToHtml(mdText);
+}

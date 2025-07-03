@@ -20,8 +20,11 @@ export function getCurrentPosition(dotNetHelper) {
         dotNetHelper.invokeMethodAsync('OnSuccessAsync', coord);
     }
 
+
     function error(err) {
-        console.warn(`ERROR(${err.code}): ${err.message}`);
+        console.log(err.code);
+        console.log(err.message);
+        console.warn('ERROR(${err.code}): ${err.message}');
     }
         
     navigator.geolocation.getCurrentPosition(success, error, options);

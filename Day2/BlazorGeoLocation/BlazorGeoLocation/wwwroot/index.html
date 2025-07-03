@@ -28,23 +28,6 @@
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
 
-    <script>
-        window.getCoords = async () => {
-            const pos = await new Promise((resolve, reject) => {
-                navigator.geolocation.getCurrentPosition(resolve, reject);
-            });
-            document.getElementById("SearchPoint").value = pos.coords.latitude + ', ' + pos.coords.longitude
-
-            if ("createEvent" in document) {
-                var evt = document.createEvent("HTMLEvents");
-                evt.initEvent("change", false, true);
-                document.getElementById("SearchPoint").dispatchEvent(evt);
-            }
-            else
-                document.getElementById("SearchPoint").fireEvent("onchange");
-
-        };
-    </script>
 </body>
 
 </html>
